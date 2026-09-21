@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "202096968878",
+    "project_id": "studytrack-895e3",
+    "storage_bucket": "studytrack-895e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202096968878:android:9f320cfa92df682082593f",
+        "android_client_info": {
+          "package_name": "com.example.studytrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaycHk_LynrRmK2jc3uckUsD-2QpDurbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
