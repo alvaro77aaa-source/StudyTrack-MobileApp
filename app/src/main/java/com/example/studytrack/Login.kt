@@ -17,7 +17,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 @Composable
 fun PantallaAutenticacion(onLoginExitoso: () -> Unit) {
     var esModoLogin by remember { mutableStateOf(true) }
-
     var nombreCompleto by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     var clave by remember { mutableStateOf("") }

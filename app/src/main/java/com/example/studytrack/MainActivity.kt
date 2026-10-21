@@ -10,12 +10,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.studytrack.ui.theme.StudyTrackTheme
+import com.example.studytrack.utils.Notificaciones
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Initialize notification channel for reminders (RF17)
+        Notificaciones.crearCanalNotificaciones(this)
+
         setContent {
             StudyTrackTheme {
                 Surface(
@@ -29,17 +34,24 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Controla si se muestra la pantalla de Login o la Navegación Principal
 @Composable
 fun AppPrincipal() {
     val auth = FirebaseAuth.getInstance()
     var usuarioLogueado by remember { mutableStateOf(auth.currentUser != null) }
 
+    DisposableEffect(auth) {
+        val listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            usuarioLogueado = firebaseAuth.currentUser != null
+        }
+        auth.addAuthStateListener(listener)
+        onDispose {
+            auth.removeAuthStateListener(listener)
+        }
+    }
+
     if (!usuarioLogueado) {
-        // Llama a la pantalla de Autenticación definida en Login.kt
         PantallaAutenticacion(onLoginExitoso = { usuarioLogueado = true })
     } else {
-        // Llama al menú principal definido en NavegacionApp.kt
         MenuPrincipal(onCerrarSesion = {
             auth.signOut()
             usuarioLogueado = false
